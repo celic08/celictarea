@@ -3,47 +3,47 @@ import uniqid from 'uniqid'
 
 const Form = () =>{
 
-const [nombre, setNombre] = useState('')
-const [listanombres, setlistaNombres] = useState([])
+const [tarea, setTareas] = useState('')
+const [listatareas, setlistaTareas] = useState([])
 const [modoEdicion, setModoEdicion] = useState(false)
 const [id, setId] = useState('')
 const [error, setError] = useState(null)
 
-const addNombre = (e)=> { 
+const addTarea = (e)=> { 
     e.preventDefault()
-    if (!nombre.trim()){
+    if (!tarea.trim()){
         setError('El campo nombre esta vacio')
         return
     }
-    const nuevoNombre = {
+    const nuevoTarea = {
         id: uniqid(),
-        tituloNombre:nombre
+        tituloTarea: tarea
     }
-    setlistaNombres([...listanombres,nuevoNombre])
-setNombre('')
+    setlistaTareas([...listatareas,nuevoTarea])
+setTareas('')
 setError(null)
 
 }
 
-const deleteNombre = (id) =>{
-    const nuevaArray = listanombres.filter(item => item.id !== id )
-    setlistaNombres(nuevaArray)
+const deleteTarea = (id) =>{
+    const nuevaArray = listatareas.filter(item => item.id !== id )
+    setlistaTareas(nuevaArray)
 
 }
 const editar=(item ) =>{
     setModoEdicion(true)
   
-    setNombre(item.tituloNombre)
+    setTareas(item.tituloTarea)
     setId(item.id)
 }
 
-const editarNombre= (e) =>{
+const editarTarea= (e) =>{
     e.preventDefault()
-    const NuevoArray = listanombres.map (item => item.id=== id ? {id:id, tituloNombre:nombre}: item)
-    setlistaNombres(NuevoArray)
+    const NuevoArray = listatareas.map (item => item.id=== id ? {id:id, tituloTarea:tarea}: item)
+    setlistaTareas(NuevoArray)
     setModoEdicion(false)
     
-    setNombre('')
+    setTareas('')
 }
 
 
@@ -55,9 +55,9 @@ const editarNombre= (e) =>{
     <div className='col'>
     <ul className= "list-group">
        {
-         listanombres.map(item =>
-            <li key="{item.id}" className="list-group-item">{item.tituloNombre}
-           <button  className="btn btn-danger float-right" onClick={()=> {deleteNombre(item.id)}}>
+         listatareas.map(item =>
+            <li key="{item.id}" className="list-group-item">{item.tituloTarea}
+           <button  className="btn btn-outline-danger float-right" onClick={()=> {deleteTarea(item.id)}}>
             Borrar
            </button>
 
@@ -73,18 +73,18 @@ const editarNombre= (e) =>{
 
    
     <div className="col"> <h2>Añade tareas</h2></div>
-    <form onSubmit={modoEdicion ? editarNombre : addNombre} className="form-group">
-       <input onChange={(e)=>{setNombre(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce tarea" value={nombre} />
+    <form onSubmit={modoEdicion ? editarTarea : addTarea} className="form-group">
+       <input onChange={(e)=>{setTareas(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce tarea" value={tarea} />
       
       
-       <input className="btn btn-info btn-block" type= "submit" value={setModoEdicion ? 'Editar Descripcion' : 'Registrar Descripcion'}/> 
+       <input className="btn btn-info btn-block" type= "submit" value={setModoEdicion ? 'Editar Tarea' : 'Registrar Descripcion'}/> 
 
-       <input onChange={(e)=>{setNombre(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce Fecha" value={nombre} />
+       <input onChange={(e)=>{setTareas(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce Fecha" value={tarea} />
       
-       <input className="btn btn-info btn-block" type= "submit" value={setModoEdicion ? 'Editar Descripcion' : 'Registrar Descripcion'}/> 
+       <input className="btn btn-info btn-block" type= "submit" value={setModoEdicion ? 'Editar Fecha' : 'Registrar Descripcion'}/> 
       
 
-       <input onChange={(e)=>{setNombre(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce Descripcion" value={nombre} />
+       <input onChange={(e)=>{setTareas(e.target.value)}} className="form-control mb-3" type= "text" placeholder="Introduce Descripcion" value={tarea} />
       
       
        <input className="btn btn-info btn-block" type= "submit" value={setModoEdicion ? 'Editar Descripcion' : 'Registrar Descripcion'}/>  
